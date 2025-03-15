@@ -5,15 +5,11 @@ module.exports = {
     await queryInterface.bulkInsert('pessoas', [
       {
         nome: 'Pessoa Um',
-        email: 'pessoa1@example.com',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        email: 'pessoa1@example.com'
       },
       {
         nome: 'Pessoa Dois',
-        email: 'pessoa2@example.com',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        email: 'pessoa2@example.com'
       }
     ], {});
   },
