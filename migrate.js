@@ -1,4 +1,4 @@
-const { migrate } = require('node-pg-migrate');
+const { migrate } = require('node-pg-migrate').default;
 const { Client } = require('pg');
 
 const client = new Client({
