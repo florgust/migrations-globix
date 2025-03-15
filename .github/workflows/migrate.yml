@@ -1,29 +1,39 @@
-name: Run Database Migrations
+name: Deploy Database Changes
 
 on:
   push:
     branches:
-      - main
+      - main  # Executa o fluxo quando há push na main
 
 jobs:
-  run_migrations:
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '22.x'
 
-      - name: Install dependencies
-        run: |
-          npm install
+      - name: Instalar dependências
+        run: npm install
 
-      - name: Run migrations
+      - name: Instalar o Heroku CLI
         run: |
-          node migrate.js
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Autenticar no Heroku
+        run: heroku auth:token | heroku container:login
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: Executar Migrações no PostgreSQL
+        run: npx sequelize-cli db:migrate
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Finalizado
+        run: echo "Banco atualizado com sucesso!"
