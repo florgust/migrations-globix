@@ -16,24 +16,15 @@ jobs:
       - name: Instalar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
+          node-version: '18.x' # Render suporta bem Node.js 18
 
       - name: Instalar dependências
         run: npm install
 
-      - name: Instalar o Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Autenticar no Heroku
-        run: heroku auth:token | heroku container:login
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-
-      - name: Executar Migrações no PostgreSQL
+      - name: Executar Migrações no PostgreSQL (Render)
         run: npx sequelize-cli db:migrate
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Finalizado
-        run: echo "Banco atualizado com sucesso!"
+        run: echo "Banco atualizado com sucesso no Render!"
