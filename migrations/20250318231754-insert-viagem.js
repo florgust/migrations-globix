@@ -11,8 +11,8 @@ module.exports = {
         criador_id: 2,
         codigo_convite: 12345,
         status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
   },

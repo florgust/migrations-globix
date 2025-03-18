@@ -9,8 +9,8 @@ module.exports = {
         senha: 'senha1',
         tipo: 'usuario',
         status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       },
       {
         nome: 'Organizador',
@@ -18,8 +18,8 @@ module.exports = {
         senha: 'senha2',
         tipo: 'organizador',
         status: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
   },
