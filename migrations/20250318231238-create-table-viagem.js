@@ -44,11 +44,11 @@ module.exports = {
         allowNull: false,
         defaultValue: 1
       },
-      createdAt: {
+      dataCriacao: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      updatedAt: {
+      dataAtualizacao: {
         type: Sequelize.DATE,
         allowNull: false
       }
