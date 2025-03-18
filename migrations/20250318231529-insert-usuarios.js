@@ -7,7 +7,7 @@ module.exports = {
         nome: 'Usuário',
         email: 'usuario@email.com',
         senha: 'senha1',
-        tipo: 'usuario',
+        tipo: 'participante',
         status: 1,
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
