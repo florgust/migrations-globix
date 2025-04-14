@@ -9,12 +9,12 @@ module.exports = {
         primaryKey: true,
         allowNull: false
       },
-      id_viagem: {
+      idViagem: {
         type: Sequelize.SMALLINT,
         allowNull: false,
         references: {
           model: 'viagens',
-          key: 'id_viagem'         
+          key: 'id'         
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
@@ -23,28 +23,28 @@ module.exports = {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      endereco_partida: {
+      enderecoPartida: {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      endereco_chegada: {
+      enderecoChegada: {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      data_partida: {
+      dataPartida: {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
-      data_chegada: {
+      dataChegada: {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
-      data_criacao: {
+      dataCriacao: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW
       },
-      data_atualizacao: {
+      dataAtualizacao: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW

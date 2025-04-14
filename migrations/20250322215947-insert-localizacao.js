@@ -4,14 +4,14 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('localizacoes', [
       {
-        id_viagem: 1,
+        idViagem: 1,
         nome: 'Ponto de Encontro Central',
-        endereco_partida: 'Rua Principal, 123, Centro, Cidade A',
-        endereco_chegada: 'Praça Central, 456, Centro, Cidade B',
-        data_partida: '2025-06-10',
-        data_chegada: '2025-06-11',
-        data_criacao: new Date(),
-        data_atualizacao: new Date()
+        enderecoPartida: 'Rua Principal, 123, Centro, Cidade A',
+        enderecoChegada: 'Praça Central, 456, Centro, Cidade B',
+        dataPartida: '2025-06-10',
+        dataChegada: '2025-06-11',
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
   },
