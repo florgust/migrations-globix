@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('viagens', {
-      id_viagem: {
+      id: {
         type: Sequelize.SMALLINT,
         allowNull: false,
         autoIncrement: true,
@@ -17,15 +17,15 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true
       },
-      data_inicio: {
+      dataInicio: {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
-      data_fim: {
+      dataFim: {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
-      criador_id: {
+      criadorId: {
         type: Sequelize.SMALLINT,
         allowNull: false,
         references: {
@@ -35,7 +35,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      codigo_convite: {
+      codigoConvite: {
         type: Sequelize.SMALLINT,
         allowNull: false
       },

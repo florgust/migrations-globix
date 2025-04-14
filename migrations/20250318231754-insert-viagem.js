@@ -6,10 +6,10 @@ module.exports = {
       {
         nome: 'Viagem dos Sonhos',
         descricao: 'Uma viagem incrível para um destino paradisíaco.',
-        data_inicio: '2025-06-10',
-        data_fim: '2025-06-20',
-        criador_id: 2,
-        codigo_convite: 12345,
+        dataInicio: '2025-06-10',
+        dataFim: '2025-06-20',
+        criadorId: 2,
+        codigoConvite: 12345,
         status: 1,
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
