@@ -2,7 +2,16 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // 1. Usuários
+    // Limpar tabelas na ordem correta para evitar conflitos de FK
+    await queryInterface.bulkDelete('usuario_viagem', null, {});
+    await queryInterface.bulkDelete('orcamentos', null, {});
+    await queryInterface.bulkDelete('transportes', null, {});
+    await queryInterface.bulkDelete('itinerarios', null, {});
+    await queryInterface.bulkDelete('localizacoes', null, {});
+    await queryInterface.bulkDelete('viagens', null, {});
+    await queryInterface.bulkDelete('usuarios', null, {});
+
+    // Usuários
     await queryInterface.bulkInsert('usuarios', [
       {
         id: 10,
@@ -33,10 +42,30 @@ module.exports = {
         status: 1,
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
+      },
+      {
+        id: 13,
+        nome: 'Organizador 2',
+        email: 'org2@email.com',
+        senha: 'senhaorg2',
+        tipo: 'organizador',
+        status: 1,
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
+      },
+      {
+        id: 14,
+        nome: 'Participante 2',
+        email: 'part2@email.com',
+        senha: 'senhapart2',
+        tipo: 'participante',
+        status: 1,
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
 
-    // 2. Viagem
+    // Viagens
     await queryInterface.bulkInsert('viagens', [
       {
         id: 100,
@@ -51,10 +80,38 @@ module.exports = {
         dataAtualizacao: new Date(),
         tipo: 'privado',
         quantidadeParticipante: 2
+      },
+      {
+        id: 101,
+        nome: 'Viagem do Organizador 2',
+        descricao: 'Viagem criada pelo segundo organizador.',
+        dataInicio: '2025-08-01',
+        dataFim: '2025-08-05',
+        criadorId: 13,
+        codigoConvite: 98765,
+        status: 1,
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date(),
+        tipo: 'privado',
+        quantidadeParticipante: 1
+      },
+      {
+        id: 102,
+        nome: 'Viagem Participante 2',
+        descricao: 'Viagem para o participante 2 experimentar.',
+        dataInicio: '2025-09-10',
+        dataFim: '2025-09-15',
+        criadorId: 14,
+        codigoConvite: 22222,
+        status: 1,
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date(),
+        tipo: 'privado',
+        quantidadeParticipante: 1
       }
     ]);
 
-    // 3. Localização
+    // Localizações
     await queryInterface.bulkInsert('localizacoes', [
       {
         id: 200,
@@ -70,10 +127,40 @@ module.exports = {
         voltaDataChegada: new Date('2025-07-10T18:00:00'),
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
+      },
+      {
+        id: 201,
+        idViagem: 101,
+        nome: 'Ponto Inicial Org2',
+        idaEnderecoPartida: 'Av. Central, 1',
+        idaEnderecoChegada: 'Av. Leste, 2',
+        idaDataPartida: new Date('2025-08-01T09:00:00'),
+        idaDataChegada: new Date('2025-08-01T13:00:00'),
+        voltaEnderecoPartida: 'Av. Leste, 2',
+        voltaEnderecoChegada: 'Av. Central, 1',
+        voltaDataPartida: new Date('2025-08-05T15:00:00'),
+        voltaDataChegada: new Date('2025-08-05T19:00:00'),
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
+      },
+      {
+        id: 202,
+        idViagem: 102,
+        nome: 'Ponto Inicial Part2',
+        idaEnderecoPartida: 'Rua X, 10',
+        idaEnderecoChegada: 'Rua Y, 20',
+        idaDataPartida: new Date('2025-09-10T07:00:00'),
+        idaDataChegada: new Date('2025-09-10T11:00:00'),
+        voltaEnderecoPartida: 'Rua Y, 20',
+        voltaEnderecoChegada: 'Rua X, 10',
+        voltaDataPartida: new Date('2025-09-15T16:00:00'),
+        voltaDataChegada: new Date('2025-09-15T20:00:00'),
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
 
-    // 4. Itinerário
+    // Itinerários
     await queryInterface.bulkInsert('itinerarios', [
       {
         id: 300,
@@ -84,10 +171,20 @@ module.exports = {
         descricao: 'Visita ao parque central.',
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
+      },
+      {
+        id: 301,
+        viagemId: 101,
+        tipoEvento: 'Reunião',
+        titulo: 'Reunião de abertura',
+        dataHora: new Date('2025-08-01T15:00:00'),
+        descricao: 'Reunião para alinhar expectativas.',
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
 
-    // 5. Transporte
+    // Transportes
     await queryInterface.bulkInsert('transportes', [
       {
         id: 400,
@@ -96,10 +193,18 @@ module.exports = {
         descricao: 'Ônibus fretado para o grupo.',
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
+      },
+      {
+        id: 401,
+        viagemId: 101,
+        tipoTransporte: 'Van',
+        descricao: 'Van para o grupo do organizador 2.',
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
 
-    // 6. Orçamento
+    // Orçamentos
     await queryInterface.bulkInsert('orcamentos', [
       {
         id: 500,
@@ -109,16 +214,26 @@ module.exports = {
         observacao: 'Custo do ônibus.',
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
+      },
+      {
+        id: 501,
+        viagemId: 101,
+        categoria: 'Hospedagem',
+        custo: 1500.00,
+        observacao: 'Hotel para todos.',
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
       }
     ]);
 
-    // 7. Participação dos usuários na viagem
+    // Participação dos usuários nas viagens (status 0 não insere ainda)
     await queryInterface.bulkInsert('usuario_viagem', [
+      // Viagem 100
       {
         idViagem: 100,
         idUsuario: 10,
         papel: 'organizador',
-        status: 1, // ativo
+        status: 1,
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
       },
@@ -126,28 +241,47 @@ module.exports = {
         idViagem: 100,
         idUsuario: 11,
         papel: 'participante',
-        status: 1, // ativo
+        status: 1,
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
+      },
+      // Viagem 101
+      {
+        idViagem: 101,
+        idUsuario: 13,
+        papel: 'organizador',
+        status: 1,
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
       },
       {
-        idViagem: 100,
-        idUsuario: 12,
+        idViagem: 101,
+        idUsuario: 14,
         papel: 'participante',
-        status: 0, // pendente/solicitado
+        status: 1,
+        dataCriacao: new Date(),
+        dataAtualizacao: new Date()
+      },
+      // Viagem 102 (apenas o criador/participante 2)
+      {
+        idViagem: 102,
+        idUsuario: 14,
+        papel: 'organizador',
+        status: 1,
         dataCriacao: new Date(),
         dataAtualizacao: new Date()
       }
+      // Não insere status: 0 (pendente/solicitado) conforme solicitado
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('usuario_viagem', { idViagem: 100 }, {});
-    await queryInterface.bulkDelete('orcamentos', { viagemId: 100 }, {});
-    await queryInterface.bulkDelete('transportes', { viagemId: 100 }, {});
-    await queryInterface.bulkDelete('itinerarios', { viagemId: 100 }, {});
-    await queryInterface.bulkDelete('localizacoes', { idViagem: 100 }, {});
-    await queryInterface.bulkDelete('viagens', { id: 100 }, {});
-    await queryInterface.bulkDelete('usuarios', { id: [10, 11, 12] }, {});
+    await queryInterface.bulkDelete('usuario_viagem', null, {});
+    await queryInterface.bulkDelete('orcamentos', null, {});
+    await queryInterface.bulkDelete('transportes', null, {});
+    await queryInterface.bulkDelete('itinerarios', null, {});
+    await queryInterface.bulkDelete('localizacoes', null, {});
+    await queryInterface.bulkDelete('viagens', null, {});
+    await queryInterface.bulkDelete('usuarios', null, {});
   }
 };
